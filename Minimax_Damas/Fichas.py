@@ -1,5 +1,5 @@
 import pygame
-from Constantes import TAM_CUADRO
+from Constantes import *
 
 class Ficha:
     def __init__(self, fila, columna, color):
@@ -15,10 +15,14 @@ class Ficha:
         self.x = self.columna * TAM_CUADRO + TAM_CUADRO // 2
         self.y = self.fila * TAM_CUADRO + TAM_CUADRO // 2
 
-    def dibujar(self, pantalla):
-        pygame.draw.circle(pantalla, self.color, (self.x, self.y), self.radio)
+    def dibujar(self, pantalla, color_resaltado=None):
+            pygame.draw.circle(pantalla, GRIS, (self.x, self.y), self.radio + 3)
+            pygame.draw.circle(pantalla, NEGRO, (self.x, self.y), self.radio + 2)
+            color_final = color_resaltado if color_resaltado else self.color
+            pygame.draw.circle(pantalla, color_final, (self.x, self.y), self.radio)
 
     def mover(self, fila, columna):
         self.fila = fila
         self.columna = columna
-        self.actualizar_pos()
+        self.x = columna * TAM_CUADRO + TAM_CUADRO // 2
+        self.y = fila * TAM_CUADRO + TAM_CUADRO // 2

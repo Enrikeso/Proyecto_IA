@@ -6,7 +6,10 @@ ALTO_VENTANA = 400
 BLANCO = (255, 255, 255)
 NEGRO = (0, 0, 0)
 ROJO = (255, 0, 0)
+ROJO_CLARO = (200)
 GRIS = (200, 200, 200)
+GRIS_CLARO = (180, 180, 180)
+VERDE = (0, 200, 0)
 
 # Tamaño del tablero
 FILAS = 8

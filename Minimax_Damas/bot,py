@@ -1,0 +1,42 @@
+# Función Minimax con poda alfa-beta
+def minimax_alphabeta(node, depth, maximizing_player, alpha, beta):
+    # Caso base: si alcanzamos una profundidad máxima, devolvemos el valor del nodo
+    if depth == 0:
+        return node
+
+    # Si es el turno del jugador max (Maximiza)
+    if maximizing_player:
+        max_eval = float('-inf')  # Inicializamos el valor máximo con -infinito
+        for child in node['children']:
+            eval = minimax_alphabeta(child, depth-1, False, alpha, beta)
+            max_eval = max(max_eval, eval)
+            alpha = max(alpha, eval)  # Actualizamos alfa
+            if beta <= alpha:  # Podamos ramas innecesarias
+                break
+        return max_eval
+    else:
+        # Si es el turno del jugador min (Minimiza)
+        min_eval = float('inf')  # Inicializamos el valor mínimo con infinito
+        for child in node['children']:
+            eval = minimax_alphabeta(child, depth-1, True, alpha, beta)
+            min_eval = min(min_eval, eval)
+            beta = min(beta, eval)  # Actualizamos beta
+            if beta <= alpha:  # Podamos ramas innecesarias
+                break
+        return min_eval
+
+# Crear el árbol de ejemplo (no binario)
+tree = {
+    'value': None,
+    'children': [
+        {'value': None, 'children': [{'value': 3, 'children': []}, {'value': 5, 'children': []}, {'value': 2, 'children': []}]},  # Hijo A
+        {'value': None, 'children': [{'value': 9, 'children': []}, {'value': 12, 'children': []}]},  # Hijo B
+        {'value': None, 'children': [{'value': 5, 'children': []}, {'value': 23, 'children': []}, {'value': 1, 'children': []}]}  # Hijo C
+    ]
+}
+
+# Llamar al algoritmo minimax con poda alfa-beta
+result = minimax_alphabeta(tree, 3, True, float('-inf'), float('inf'))
+
+# El resultado es el valor máximo que Max puede obtener
+print("El valor final es:", result)
